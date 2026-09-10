@@ -118,11 +118,12 @@
     -webkit-text-stroke: 1.5px var(--accent2);
   }
   .hero-sub {
-    margin-top: 28px; max-width: 520px;
+    margin-top: 28px; max-width: 560px;
     font-size: 1.05rem; font-weight: 300; line-height: 1.7;
     color: var(--muted2);
     opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
   }
+  .hero-sub strong { color: var(--accent2); font-weight: 500; }
   .hero-ctas {
     margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap;
     opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
@@ -358,14 +359,17 @@
 
   /* Education */
   #education { background: var(--bg2); }
+  .edu-list {
+    display: flex; flex-direction: column; gap: 20px;
+    max-width: 760px;
+  }
   .edu-card {
     background: var(--surface); border: 1px solid #1e2d4a;
-    border-radius: 14px; padding: 36px;
-    display: flex; gap: 32px; align-items: flex-start;
-    max-width: 700px;
-    transition: border-color 0.3s;
+    border-radius: 14px; padding: 32px;
+    display: flex; gap: 28px; align-items: flex-start;
+    transition: border-color 0.3s, transform 0.3s;
   }
-  .edu-card:hover { border-color: var(--accent); }
+  .edu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
   .edu-icon {
     width: 56px; height: 56px; border-radius: 12px;
     background: var(--glow); border: 1px solid var(--accent);
@@ -381,12 +385,95 @@
     font-size: 0.85rem; line-height: 1.7; color: var(--muted2);
     font-weight: 300;
   }
+  .edu-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .edu-badge {
-    display: inline-block; margin-top: 12px;
+    display: inline-block;
     padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;
     background: #1a3a1a; border: 1px solid #2a6a2a; color: #4ade80;
     font-weight: 500;
   }
+  .edu-badge.gold {
+    background: #33280d; border-color: #7a5e17; color: #fbbf24;
+  }
+  .edu-badge.blue {
+    background: #14243f; border-color: #2a4f8a; color: var(--accent2);
+  }
+
+  /* Gallery of graduation photos & certificates */
+  .gallery-heading {
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+    color: var(--white); letter-spacing: 0.02em;
+    margin: 64px 0 6px;
+  }
+  .gallery-note {
+    font-size: 0.85rem; color: var(--muted); font-weight: 300;
+    margin-bottom: 26px;
+  }
+  .gallery {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px; max-width: 900px;
+  }
+  .gallery-item {
+    background: var(--surface); border: 1px solid #1e2d4a;
+    border-radius: 14px; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: none;
+  }
+  .gallery-item:hover {
+    border-color: var(--accent); transform: translateY(-5px);
+    box-shadow: 0 20px 44px #00000070;
+  }
+  .gallery-thumb {
+    aspect-ratio: 3 / 4; background: #0a1020;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border-bottom: 1px solid #1e2d4a;
+  }
+  .gallery-thumb img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover .gallery-thumb img { transform: scale(1.04); }
+  .gallery-caption { padding: 16px 18px 18px; }
+  .gallery-title {
+    font-family: 'Syne', sans-serif; font-size: 0.92rem;
+    font-weight: 700; color: var(--white); margin-bottom: 4px;
+  }
+  .gallery-sub {
+    font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.5;
+  }
+  .gallery-zoom {
+    display: inline-block; margin-top: 10px;
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  /* Popup that shows the full size image */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 500;
+    background: #060911f5; backdrop-filter: blur(6px);
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 56px 24px 32px; cursor: none;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: min(880px, 92vw); max-height: 80vh;
+    border-radius: 10px; border: 1px solid #2a3f6a;
+    box-shadow: 0 30px 80px #000000cc;
+  }
+  .lightbox-caption {
+    margin-top: 18px; font-size: 0.85rem; color: var(--muted2);
+    text-align: center; font-weight: 300;
+  }
+  .lightbox-close {
+    position: absolute; top: 22px; right: 28px;
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid #2a3f6a; background: var(--surface);
+    color: var(--muted2); font-size: 1.1rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    cursor: none; transition: all 0.2s;
+  }
+  .lightbox-close:hover { border-color: var(--accent); color: var(--accent2); }
 
   /* Contact */
   #contact { background: var(--bg); text-align: center; }
@@ -437,7 +524,11 @@
     section { padding: 72px 6vw; }
     #hero { padding: 100px 6vw 60px; }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stat-num { font-size: 1.7rem; }
     h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
+    .edu-card { flex-direction: column; gap: 18px; padding: 26px; }
+    .gallery { grid-template-columns: 1fr; max-width: 340px; }
+    .lightbox { padding: 64px 16px 24px; }
   }
 </style>
 </head>
@@ -457,6 +548,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -469,7 +561,7 @@
       <span class="line2">Lötter</span>
     </h1>
     <p class="hero-sub">
-      Software Developer & IT Specialist based in Bloemfontein, South Africa. I build full-stack web applications, solve complex technical problems, and bridge the gap between code and people.
+      Software Developer & IT Specialist based in Bloemfontein, South Africa. <strong>BCIS graduate</strong> — winner of the <strong>BBD award for best third-year student</strong> at the University of the Free State — now studying towards a <strong>BSc Honours in Computer Science &amp; Informatics</strong>. I build full-stack web applications, solve complex technical problems, and bridge the gap between code and people.
     </p>
     <div class="hero-ctas">
       <a href="#projects" class="btn btn-primary">View My Work ↓</a>
@@ -488,7 +580,8 @@
     <h2>The person behind<br>the code</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>I'm a final-year BSc IT student at the <strong>University of the Free State</strong>, graduating <strong>cum laude in 2026</strong>, majoring in Computer Science and Business Management.</p>
+        <p>I graduated with a <strong>Bachelor of Computer Information Systems</strong> from the <strong>University of the Free State</strong> in April 2026, majoring in Computer Science and Business Management, and picked up the <strong>BBD award for the best third-year student in Computer Information Systems</strong> along the way.</p>
+        <p>I'm now studying towards a <strong>BSc Honours in Computer Science and Informatics</strong> at UFS, while working as a graduate developer.</p>
         <p>My background spans full-stack development, technical support, and client-facing roles — which means I'm just as comfortable debugging a Django app as I am explaining it to a non-technical stakeholder.</p>
         <p>I've worked in real industry environments: as a <strong>graduate developer at Bluubin</strong>, a software intern, a hackathon participant at <strong>BBD Software</strong>, and a technical support rep at <strong>Vodacom</strong>. I've tutored students, automated data pipelines, built web apps from scratch, and shipped real products under pressure.</p>
         <p>I'm driven by curiosity, fuelled by problem-solving, and at my best when I'm learning something new or helping someone else get unstuck.</p>
@@ -499,12 +592,12 @@
           <div class="stat-label">Years of development & technical experience</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">cum laude</div>
-          <div class="stat-label">Expected graduation result — UFS 2026</div>
+          <div class="stat-num">Best</div>
+          <div class="stat-label">BBD award for the best third-year student in Computer Information Systems</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">5+</div>
-          <div class="stat-label">Projects built across web, data & CV/ML</div>
+          <div class="stat-num">Honours</div>
+          <div class="stat-label">BSc Computer Science & Informatics — in progress</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">Ubuntu</div>
@@ -777,16 +870,86 @@
   <section id="education">
     <div class="section-label reveal">05 / Education</div>
     <h2 class="reveal">Academic background</h2>
-    <div class="edu-card reveal">
-      <div class="edu-icon">🎓</div>
-      <div>
-        <div class="edu-degree">Bachelor of Information Systems (BSc IT)</div>
-        <div class="edu-school">University of the Free State — Expected 2026</div>
-        <div class="edu-detail">
-          Majoring in Computer Science & Business Management. Completed all CS modules through to 3rd year. Served as a lab assistant (Demmie) for the Web Development module. Actively self-studying AWS, cloud architecture, and open source infrastructure alongside formal studies.
+
+    <div class="edu-list">
+
+      <div class="edu-card reveal">
+        <div class="edu-icon">📚</div>
+        <div>
+          <div class="edu-degree">BSc Honours in Computer Science and Informatics</div>
+          <div class="edu-school">University of the Free State — currently studying</div>
+          <div class="edu-detail">
+            Postgraduate study building on my undergraduate degree, with a focus on deeper computer science theory, research methods, and advanced software engineering. Studying alongside my work as a graduate developer.
+          </div>
+          <div class="edu-badges">
+            <span class="edu-badge">✦ In progress</span>
+          </div>
         </div>
-        <span class="edu-badge">✦ Graduating Cum Laude</span>
       </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-degree">Bachelor of Computer Information Systems (BCIS)</div>
+          <div class="edu-school">University of the Free State — conferred 17 April 2026</div>
+          <div class="edu-detail">
+            Majored in Computer Science &amp; Business Management. Received the <strong style="color:#fbbf24;font-weight:500;">BBD award for the best third-year student in Computer Information Systems</strong> from the Faculty of Natural and Agricultural Sciences. Served as a lab assistant (Demmie) for the Web Development module. Actively self-studying AWS, cloud architecture, and open source infrastructure alongside formal studies.
+          </div>
+          <div class="edu-badges">
+            <span class="edu-badge gold">🏅 BBD Award — Best Third-Year Student</span>
+            <span class="edu-badge blue">SAQA ID 97412</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- photos of the graduation and certificates -->
+    <div class="gallery-heading reveal">Graduation &amp; awards</div>
+    <div class="gallery-note reveal">Click any image to view it full size.</div>
+
+    <div class="gallery">
+
+      <div class="gallery-item reveal"
+           data-full="images/graduation.jpg"
+           data-caption="Graduation ceremony — University of the Free State, April 2026">
+        <!-- thumb is the cropped photo, data-full opens the full UFS frame -->
+        <div class="gallery-thumb">
+          <img src="images/graduation-thumb.jpg" alt="Stefann Lötter being hooded at the UFS graduation ceremony, 2026" loading="lazy">
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-title">Graduation Ceremony</div>
+          <div class="gallery-sub">University of the Free State · 2026</div>
+          <span class="gallery-zoom">Click to enlarge ⤢</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal"
+           data-full="images/degree-certificate.jpg"
+           data-caption="Bachelor of Computer Information Systems — conferred 17 April 2026, University of the Free State">
+        <div class="gallery-thumb">
+          <img src="images/degree-certificate.jpg" alt="Bachelor of Computer Information Systems degree certificate from the University of the Free State" loading="lazy">
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-title">Degree Certificate</div>
+          <div class="gallery-sub">Bachelor of Computer Information Systems</div>
+          <span class="gallery-zoom">Click to enlarge ⤢</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal"
+           data-full="images/award-certificate.jpg"
+           data-caption="BBD award for the best third-year student in Computer Information Systems — Faculty of Natural and Agricultural Sciences, UFS, April 2026">
+        <div class="gallery-thumb">
+          <img src="images/award-certificate.jpg" alt="BBD award certificate for the best third-year student in Computer Information Systems" loading="lazy">
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-title">BBD Award</div>
+          <div class="gallery-sub">Best third-year student · UFS 2026</div>
+          <span class="gallery-zoom">Click to enlarge ⤢</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -798,7 +961,6 @@
       <p class="contact-sub reveal">I'm actively looking for opportunities in software development, IT support, and customer success roles. I'm open to remote work, relocation, and everything in between. Reach out — I respond fast.</p>
       <div class="contact-links reveal">
         <a href="mailto:stevelotter14@gmail.com" class="contact-link">✉ stevelotter14@gmail.com</a>
-        <a href="https://www.linkedin.com/in/stefann-lotter-7792b6290/" target="_blank" class="contact-link">in LinkedIn</a>
         <a href="https://github.com/StevesaurusReX" target="_blank" class="contact-link">⌥ GitHub</a>
         <a href="tel:+27767173341" class="contact-link">📞 076 717 3341</a>
       </div>
@@ -810,6 +972,13 @@
     <span>Built with HTML, CSS & JS · Hosted on GitHub Pages</span>
   </footer>
 
+</div>
+
+<!-- popup for the gallery images -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
 
 <script>
@@ -903,6 +1072,36 @@ const barObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.3 });
 document.querySelectorAll('.skill-group').forEach(g => barObserver.observe(g));
+
+// Gallery popup
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCaption = document.getElementById('lightboxCaption');
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => {
+    lightboxImg.src = item.dataset.full;
+    lightboxImg.alt = item.dataset.caption;
+    lightboxCaption.textContent = item.dataset.caption;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// close when clicking the background or the X button
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox || e.target.id === 'lightboxClose') closeLightbox();
+});
+
+// close with the escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
 </script>
 </body>
 </html>
